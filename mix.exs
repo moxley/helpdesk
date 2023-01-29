@@ -24,7 +24,10 @@ defmodule Helpdesk.MixProject do
     [
       {:ash, "~> 2.5.9"},
       {:ash_postgres, "~> 1.3.2"},
-      {:elixir_sense, github: "elixir-lsp/elixir_sense", only: [:dev, :test]}
+      {:ash_graphql, "~> 0.22"},
+      {:absinthe_plug, "~> 1.5.8"},
+      {:elixir_sense, github: "elixir-lsp/elixir_sense", only: [:dev, :test]},
+      {:plug_cowboy, "~> 2.0"}
     ]
   end
 end

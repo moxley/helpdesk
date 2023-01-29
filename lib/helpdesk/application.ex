@@ -8,7 +8,8 @@ defmodule Helpdesk.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Helpdesk.Repo
+      Helpdesk.Repo,
+      {Plug.Cowboy, scheme: :http, plug: Helpdesk.Plug.Router, options: [port: 8081]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

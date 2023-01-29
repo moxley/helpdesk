@@ -1,12 +1,16 @@
 defmodule Helpdesk.Support.Ticket do
   # This turns this module into a resource
   use Ash.Resource,
-    data_layer: AshPostgres.DataLayer
+    # data_layer: AshPostgres.DataLayer,
+    data_layer: Ash.DataLayer.Ets,
+    extensions: [
+      AshGraphql.Resource
+    ]
 
-  postgres do
-    table "tickets"
-    repo Helpdesk.Repo
-  end
+  # postgres do
+  #   table "tickets"
+  #   repo Helpdesk.Repo
+  # end
 
   actions do
     # Add a set of simple actions. You'll customize these later.
@@ -79,5 +83,27 @@ defmodule Helpdesk.Support.Ticket do
     # on the name of this relationship and that the source attribute is `representative_id`.
     # We create `representative_id` automatically.
     belongs_to :representative, Helpdesk.Support.Representative
+  end
+
+  graphql do
+    type :post
+
+    queries do
+      # <- create a field called `get_post` that uses the `read` read action to fetch a single post
+      get(:get_ticket, :read)
+
+      # # <- create a field called `current_user` that uses the `current_user` read action to fetch a single record
+      # read_one(:current_user, :current_user)
+
+      # <- create a field called `list_posts` that uses the `read` read action to fetch a list of posts
+      list(:list_tickets, :read)
+    end
+
+    mutations do
+      # And so on
+      create :create_ticket, :create
+      update :update_ticket, :update
+      destroy :destroy_ticket, :destroy
+    end
   end
 end
