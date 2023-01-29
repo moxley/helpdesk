@@ -86,7 +86,7 @@ defmodule Helpdesk.Support.Ticket do
   end
 
   graphql do
-    type :post
+    type :ticket
 
     queries do
       # <- create a field called `get_post` that uses the `read` read action to fetch a single post
