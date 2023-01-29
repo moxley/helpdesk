@@ -7,9 +7,6 @@ defmodule Helpdesk.Absinthe.Schema do
 
   # The query and mutation blocks is where you can add custom absinthe code
   query do
-    field :blank, :string do
-      resolve(fn _, _, _ -> {:ok, ""} end)
-    end
   end
 
   mutation do
