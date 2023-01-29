@@ -104,6 +104,7 @@ defmodule Helpdesk.Support.Ticket do
       create :create_ticket, :create
       update :update_ticket, :update
       destroy :destroy_ticket, :destroy
+      update :assign_representative, :assign
     end
   end
 end

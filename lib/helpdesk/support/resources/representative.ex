@@ -1,12 +1,16 @@
 defmodule Helpdesk.Support.Representative do
   # This turns this module into a resource using the in memory ETS data layer
   use Ash.Resource,
-    data_layer: AshPostgres.DataLayer
+    # data_layer: AshPostgres.DataLayer
+    data_layer: Ash.DataLayer.Ets,
+    extensions: [
+      AshGraphql.Resource
+    ]
 
-  postgres do
-    table "representatives"
-    repo Helpdesk.Repo
-  end
+  # postgres do
+  #   table "representatives"
+  #   repo Helpdesk.Repo
+  # end
 
   actions do
     # Add the default simple actions
@@ -46,5 +50,24 @@ defmodule Helpdesk.Support.Representative do
 
   calculations do
     calculate :percent_open, :float, expr(open_tickets / total_tickets)
+  end
+
+  graphql do
+    type :representative
+
+    queries do
+      # <- create a field called `get_post` that uses the `read` read action to fetch a single post
+      get(:get_representative, :read)
+
+      # <- create a field called `list_posts` that uses the `read` read action to fetch a list of posts
+      list(:list_representatives, :read)
+    end
+
+    mutations do
+      # And so on
+      create :create_representative, :create
+      update :update_representative, :update
+      destroy :destroy_representative, :destroy
+    end
   end
 end
