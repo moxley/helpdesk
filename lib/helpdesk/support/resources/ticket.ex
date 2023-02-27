@@ -90,13 +90,13 @@ defmodule Helpdesk.Support.Ticket do
 
     queries do
       # <- create a field called `get_post` that uses the `read` read action to fetch a single post
-      get(:get_ticket, :read)
+      get :get_ticket, :read
 
       # # <- create a field called `current_user` that uses the `current_user` read action to fetch a single record
       # read_one(:current_user, :current_user)
 
       # <- create a field called `list_posts` that uses the `read` read action to fetch a list of posts
-      list(:list_tickets, :read)
+      list :list_tickets, :read
     end
 
     mutations do
